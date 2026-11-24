@@ -1,0 +1,13 @@
+# 실제 스캔 결과(본인 도메인 자산·프로브·시크릿)는 커밋하지 않음.
+# 참조용 지문 DB(takeover_fingerprints.json)만 추적.
+data/*.json
+data/*.html
+data/*.har
+data/cache/
+!data/takeover_fingerprints.json
+
+__pycache__/
+*.pyc
+.venv/
+*.sarif.bak
+.DS_Store

@@ -1,0 +1,62 @@
+# ASM 툴킷 설정
+# 대상은 본인 소유 도메인 또는 명시적 허가 범위만. 실서비스 금지.
+
+# 타겟 정의 — 어떤 대상에 어떤 단계를 수행하는지 명시.
+# ASM은 성격이 다른 대상을 같은 파이프라인으로 다루되, 리포트는 타겟별로 나눈다.
+targets:
+  - name: example.com             # ← 본인 소유 도메인으로 교체
+    kind: external-domain          # 외부에서 보이는 도메인 (블랙박스)
+    role: "외부 공격표면 발견 — 본인 소유 도메인"
+    stages: [S0, S1, S2]           # 발견·프로브·탈취
+  - name: crAPI (로컬)
+    kind: api-app                  # API 중심 앱 (화이트박스 소스 보유)
+    role: "API 심층 검증 — 로컬 docker 실습 앱"
+    stages: [S3, S4, S5]           # 시크릿·API표면·능동검증
+
+target:
+  # 루트 도메인 (본인 소유). 예: example.com
+  root_domain: example.com
+  # 조직 레포 (시크릿 스캔용, 선택)
+  github_org: null
+
+# 스코프 가드: 능동 스캔(S1~)은 이 도메인의 서브도메인만 허용.
+# 루트 도메인과 그 하위만 매칭된다.
+scope:
+  allowed_suffixes:
+    - example.com
+
+discover:
+  crtsh: true          # CT 로그 (crt.sh). 공개 데이터, 안전
+  dns_resolvers: [1.1.1.1, 8.8.8.8]
+  # 서브도메인 브루트포스 워드리스트 (선택, 수동 발견 보강)
+  wordlist: null
+
+probe:
+  rate_per_sec: 5
+  timeout: 10
+  # 능동 프로브(살아있는 호스트 확인)를 켤지. 기본 끔 — 명시적으로 켜야 요청이 나감
+  enabled: true
+
+takeover:
+  # can-i-take-over-xyz 지문 DB (로컬 복사본)
+  fingerprints: data/takeover_fingerprints.json
+
+secrets:
+  trufflehog: trufflehog    # 바이너리 경로 (설치 시)
+  kingfisher: kingfisher
+  # 시크릿 스캔 대상 (로컬 디렉터리·레포). 발견한 소스.
+  scan_targets:
+    - ../sources/crAPI/services
+
+# 캐시: 외부 조회(crt.sh/DNS) 결과를 저장해 재사용. 개발 중 반복 요청 방지.
+cache:
+  dir: data/cache
+  ttl_hours: 24
+
+output_dir: data
+
+# S4/S5: API 표면 심층 검증. ASM이 발견한 API 대상을 crAPI 툴킷(M1 Shadow + M3 검증)으로.
+# toolkit_data: 이미 M1~M3가 돌아간 crAPI 툴킷 data 디렉터리.
+apisurface:
+  toolkit_data: ../toolkit/data
+  toolkit_cmd: null   # 직접 재실행하려면 명령 지정 (예: cd ../../toolkit && apisec all)

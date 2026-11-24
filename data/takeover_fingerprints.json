@@ -1,0 +1,21 @@
+{
+  "_source": "can-i-take-over-xyz 프로젝트 기반 핵심 서비스 발췌 (교육용)",
+  "_note": "cname: CNAME에서 찾을 패턴, fingerprint: HTTP 응답 본문의 지문, vulnerable: 선점 가능 여부",
+  "services": [
+    {"service": "AWS/S3", "cname": ["s3.amazonaws.com", "s3-website", "s3.dualstack"], "fingerprint": ["NoSuchBucket", "The specified bucket does not exist"], "vulnerable": true},
+    {"service": "GitHub Pages", "cname": ["github.io"], "fingerprint": ["There isn't a GitHub Pages site here", "For root URLs (like http://example.com/) you must provide an index.html file"], "vulnerable": true},
+    {"service": "Heroku", "cname": ["herokudns.com", "herokuapp.com", "herokussl.com"], "fingerprint": ["No such app", "herokucdn.com/error-pages/no-such-app.html"], "vulnerable": true},
+    {"service": "Fastly", "cname": ["fastly.net"], "fingerprint": ["Fastly error: unknown domain"], "vulnerable": true},
+    {"service": "Pantheon", "cname": ["pantheonsite.io"], "fingerprint": ["The gods are wise", "404 error unknown site"], "vulnerable": true},
+    {"service": "Shopify", "cname": ["myshopify.com"], "fingerprint": ["Sorry, this shop is currently unavailable"], "vulnerable": true},
+    {"service": "Surge.sh", "cname": ["surge.sh"], "fingerprint": ["project not found"], "vulnerable": true},
+    {"service": "Tumblr", "cname": ["domains.tumblr.com"], "fingerprint": ["Whatever you were looking for doesn't currently exist at this address"], "vulnerable": true},
+    {"service": "Unbounce", "cname": ["unbouncepages.com"], "fingerprint": ["The requested URL was not found on this server"], "vulnerable": true},
+    {"service": "Ghost", "cname": ["ghost.io"], "fingerprint": ["The thing you were looking for is no longer here, or never was"], "vulnerable": true},
+    {"service": "Azure", "cname": ["azurewebsites.net", "cloudapp.net", "trafficmanager.net", "blob.core.windows.net"], "fingerprint": ["404 Web Site not found"], "vulnerable": true},
+    {"service": "Cargo", "cname": ["cargocollective.com"], "fingerprint": ["404 Not Found"], "vulnerable": true},
+    {"service": "Webflow", "cname": ["proxy-ssl.webflow.com", "webflow.io"], "fingerprint": ["The page you are looking for doesn't exist or has been moved"], "vulnerable": true},
+    {"service": "Zendesk", "cname": ["zendesk.com"], "fingerprint": ["Help Center Closed"], "vulnerable": false},
+    {"service": "Readthedocs", "cname": ["readthedocs.io"], "fingerprint": ["unknown to Read the Docs"], "vulnerable": true}
+  ]
+}
