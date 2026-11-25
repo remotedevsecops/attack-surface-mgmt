@@ -1,0 +1,56 @@
+{
+  "probe": [
+    {
+      "host": "example.com",
+      "status": 200,
+      "final_url": "https://www.example.com/",
+      "server": "Vercel",
+      "tech": [
+        "Vercel",
+        "Next.js"
+      ],
+      "title": "Example Service",
+      "security_headers": {
+        "strict-transport-security": true,
+        "content-security-policy": false,
+        "x-frame-options": true,
+        "x-content-type-options": true
+      },
+      "tls": {
+        "tls_version": "TLSv1.3",
+        "subject_cn": "example.com",
+        "issuer": "Let's Encrypt",
+        "not_after": "Feb 13 02:55:00 2027 GMT",
+        "san": [
+          "example.com"
+        ]
+      }
+    },
+    {
+      "host": "www.example.com",
+      "status": 200,
+      "final_url": "https://www.example.com",
+      "server": "Vercel",
+      "tech": [
+        "Vercel",
+        "Next.js"
+      ],
+      "title": "Example Service",
+      "security_headers": {
+        "strict-transport-security": true,
+        "content-security-policy": false,
+        "x-frame-options": true,
+        "x-content-type-options": true
+      },
+      "tls": {
+        "tls_version": "TLSv1.3",
+        "subject_cn": "www.example.com",
+        "issuer": "Let's Encrypt",
+        "not_after": "Feb 13 08:42:31 2027 GMT",
+        "san": [
+          "www.example.com"
+        ]
+      }
+    }
+  ]
+}

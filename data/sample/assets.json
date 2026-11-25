@@ -1,0 +1,38 @@
+{
+  "meta": {
+    "generated_at": "2026-11-24T02:31:05+00:00",
+    "root_domain": "example.com",
+    "counts": {
+      "total": 2,
+      "alive": 2,
+      "with_cname": 1
+    }
+  },
+  "assets": [
+    {
+      "host": "example.com",
+      "source": [
+        "ct-log"
+      ],
+      "cname": null,
+      "a": [
+        "203.0.113.10"
+      ],
+      "alive": true,
+      "dangling_nxdomain": false
+    },
+    {
+      "host": "www.example.com",
+      "source": [
+        "ct-log"
+      ],
+      "cname": "0000000000000000.vercel-dns-000.com",
+      "a": [
+        "203.0.113.11",
+        "203.0.113.12"
+      ],
+      "alive": true,
+      "dangling_nxdomain": false
+    }
+  ]
+}

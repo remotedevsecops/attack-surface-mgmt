@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ASM 리포트</title>
+<style>
+:root{--bg:#f7f7f5;--surface:#fff;--ink:#1d1d1b;--muted:#6b6b66;--line:#e4e3de;--accent:#2f5bd3;--crit:#c8372d;--crit-bg:#fbeceb;--warn:#b25e09;--warn-bg:#fcf1e3;--ok:#2d7a46;--ok-bg:#e7f3ea;--info:#2f5bd3;--info-bg:#e9effc;--violet:#6a4bc4;--violet-bg:#efebfa;--neutral-bg:#efefec;}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#151514;--surface:#1e1e1c;--ink:#ecece8;--muted:#a2a29b;--line:#34342f;--accent:#7d9cf0;--crit:#f0857b;--crit-bg:#3a1f1c;--warn:#e9a55a;--warn-bg:#382816;--ok:#7cc495;--ok-bg:#1d3324;--info:#7d9cf0;--info-bg:#1f2840;--violet:#b3a0f0;--violet-bg:#2a2340;--neutral-bg:#2a2a27;}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Segoe UI",sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:28px 16px 64px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:15px;margin:0}
+.sub{color:var(--muted);font-size:13px}
+.tgt{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:0;margin-top:18px;overflow:hidden}
+.tgthead{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;padding:16px;background:var(--neutral-bg);border-bottom:1px solid var(--line)}
+.tgthead .name{font-size:17px;font-weight:650}
+.tgthead .kind{font-size:12px;padding:2px 9px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--muted)}
+.tgthead .role{color:var(--muted);font-size:13px;flex-basis:100%}
+.tgthead .stages{margin-left:auto;font:12px ui-monospace,Menlo,monospace;color:var(--muted)}
+.sec{padding:14px 16px;border-bottom:1px solid var(--line)}.sec:last-child{border-bottom:none}
+.sec h3{font-size:13px;margin:0 0 10px;color:var(--muted);font-weight:600}
+.sec h3 .step{display:inline-block;font:11px ui-monospace,Menlo,monospace;background:var(--info-bg);color:var(--info);padding:1px 6px;border-radius:4px;margin-right:6px}
+.tablewrap{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:460px}
+th{font-size:12px;color:var(--muted);font-weight:600;text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top;font-size:13px}
+.p{font:12.5px ui-monospace,Menlo,monospace;word-break:break-all}
+.b{display:inline-block;font-size:11.5px;padding:1px 7px;border-radius:999px;margin:0 2px 2px 0;white-space:nowrap}
+.ok{background:var(--ok-bg);color:var(--ok)}.crit{background:var(--crit-bg);color:var(--crit)}.warn{background:var(--warn-bg);color:var(--warn)}.muted{background:var(--neutral-bg);color:var(--muted)}.info{background:var(--info-bg);color:var(--info)}
+.empty{color:var(--muted);padding:8px 0;font-size:13px}
+.kv{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;margin-bottom:4px}
+.kv b{font-size:18px;font-weight:650}.kv .crit{background:none;color:var(--crit)}.kv .warn{background:none;color:var(--warn)}.kv .ok{background:none;color:var(--ok)}
+.secbar{display:flex;gap:3px;flex-wrap:wrap}.secbar span{font-size:11px;padding:1px 6px;border-radius:4px}
+.yes{background:var(--ok-bg);color:var(--ok)}.no{background:var(--crit-bg);color:var(--crit)}
+.note{color:var(--muted);font-size:12px;margin-top:8px;line-height:1.5}
+.flowline{font-size:12.5px;color:var(--muted);margin-top:6px}.flowline b{color:var(--ink)}
+.foot{color:var(--muted);font-size:12px;margin-top:20px;line-height:1.6}
+</style></head><body><div class="wrap">
+<h1>ASM 리포트</h1>
+<div class="sub">생성 2026-11-24 04:51 UTC · 타겟 2개 · 대상별로 수행 단계와 결과를 분리</div>
+
+
+<div class="tgt">
+  <div class="tgthead">
+    <span class="name">example.com</span>
+    <span class="kind">external-domain</span>
+    <span class="stages">S0 · S1 · S2</span>
+    <span class="role">외부 공격표면 발견 — 본인 소유 도메인</span>
+  </div>
+
+  
+  <div class="sec">
+    <h3><span class="step">S0 발견</span><span class="step">S1 프로브</span><span class="step">S2 탈취</span>외부 자산</h3>
+    <div class="kv">
+      <span>발견 <b>2</b></span>
+      <span>살아있음 <b class="ok">2</b></span>
+      <span>탈취 위험 <b class="">0</b></span>
+    </div>
+    <div class="tablewrap"><table>
+    <thead><tr><th>호스트</th><th>상태</th><th>기술스택</th><th>CNAME</th><th>탈취</th><th>보안헤더</th></tr></thead><tbody>
+    <tr>
+      <td class="p">example.com</td>
+      <td><span class="b ok">live</span></td>
+      <td><span class="b muted">Vercel</span><span class="b muted">Next.js</span></td>
+      <td class="p"></td>
+      <td></td>
+      <td><div class="secbar"><span class="yes" title="strict-transport-security">stri</span><span class="no" title="content-security-policy">cont</span><span class="yes" title="x-frame-options">x</span><span class="yes" title="x-content-type-options">x</span></div></td>
+    </tr><tr>
+      <td class="p">www.example.com</td>
+      <td><span class="b ok">live</span></td>
+      <td><span class="b muted">Vercel</span><span class="b muted">Next.js</span></td>
+      <td class="p">0000000000000000.vercel-dns-000.com</td>
+      <td></td>
+      <td><div class="secbar"><span class="yes" title="strict-transport-security">stri</span><span class="no" title="content-security-policy">cont</span><span class="yes" title="x-frame-options">x</span><span class="yes" title="x-content-type-options">x</span></div></td>
+    </tr>
+    </tbody></table></div>
+    <div class="note">S0는 CT로그·DNS만(요청 없음). S1 프로브와 S2 탈취 HTTP 확인은 이 도메인 범위만. 빨간 보안헤더 = 누락.</div>
+  </div>
+
+  
+</div>
+
+<div class="tgt">
+  <div class="tgthead">
+    <span class="name">crAPI (로컬)</span>
+    <span class="kind">api-app</span>
+    <span class="stages">S3 · S4 · S5</span>
+    <span class="role">API 심층 검증 — 로컬 docker 실습 앱</span>
+  </div>
+
+  
+  <div class="sec">
+    <h3><span class="step">S3 시크릿</span>소스에서 유출 시크릿 (5건)</h3>
+    <div class="tablewrap"><table>
+    <thead><tr><th>종류</th><th>파일 위치 (흐름)</th><th>검증 상태</th><th>값</th></tr></thead><tbody>
+    <tr>
+      <td><span class="b warn">PrivateKey</span></td>
+      <td class="p">services › certs/server.key:1</td>
+      <td><span class="b muted">미검증(검증대상 없음)</span></td>
+      <td class="p">----***-
+</td>
+    </tr><tr>
+      <td><span class="b warn">PrivateKey</span></td>
+      <td class="p">services › gateway-service/server.key:1</td>
+      <td><span class="b muted">미검증(검증대상 없음)</span></td>
+      <td class="p">----***-
+</td>
+    </tr><tr>
+      <td><span class="b warn">Postgres</span></td>
+      <td class="p">services › pq/url.go:21</td>
+      <td><span class="b warn" title="context deadline exceeded">검증 시도·실패</span>
+          </td>
+      <td class="p">post***32</td>
+    </tr><tr>
+      <td><span class="b warn">MongoDB</span></td>
+      <td class="p">services › options/clientoptions.go:71</td>
+      <td><span class="b warn" title="context deadline exceeded">검증 시도·실패</span>
+          </td>
+      <td class="p">mong***17</td>
+    </tr><tr>
+      <td><span class="b warn">MongoDB</span></td>
+      <td class="p">services › mongo/doc.go:14</td>
+      <td><span class="b warn" title="context deadline exceeded">검증 시도·실패</span>
+          </td>
+      <td class="p">mong***17</td>
+    </tr>
+    </tbody></table></div>
+    <div class="note">검증 상태: <b>검증됨</b>=발급처 API로 활성 확인 · <b>검증 시도·실패</b>=발급처에 접속했으나 도달 못함(i/o timeout 등) · <b>미검증</b>=자체서명 키 등 검증할 외부 대상이 없음. crAPI는 로컬 DB·자체 인증서라 활성 검증이 불가능한 게 정상.</div>
+    
+  </div>
+
+  <div class="sec">
+    <h3><span class="step">S4 API 표면</span><span class="step">S5 능동 검증</span>crAPI 툴킷 통합</h3>
+    
+    <div class="kv">
+      <span>엔드포인트 <b>73</b></span>
+      <span>Shadow <b class="warn">24</b></span>
+      <span>확정 취약 <b class="crit">4</b></span>
+    </div>
+    <div class="tablewrap"><table>
+    <thead><tr><th>서비스</th><th>엔드포인트</th><th>Shadow</th><th>무인증</th><th>BOLA</th><th>PII</th><th>확정 취약(M3)</th></tr></thead><tbody>
+    <tr>
+      <td>identity</td><td>32</td><td>10</td>
+      <td><span class="b crit">2</span></td>
+      <td><span class="b warn">5</span></td>
+      <td>4</td>
+      <td><span class="b crit">1</span></td>
+    </tr><tr>
+      <td>community</td><td>9</td><td>2</td>
+      <td></td>
+      <td><span class="b warn">2</span></td>
+      <td>4</td>
+      <td></td>
+    </tr><tr>
+      <td>workshop</td><td>28</td><td>12</td>
+      <td><span class="b crit">7</span></td>
+      <td><span class="b warn">8</span></td>
+      <td>5</td>
+      <td><span class="b crit">2</span></td>
+    </tr><tr>
+      <td>chatbot</td><td>1</td><td></td>
+      <td><span class="b crit">1</span></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr><tr>
+      <td>gateway</td><td>2</td><td></td>
+      <td><span class="b crit">1</span></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr><tr>
+      <td>mailhog</td><td>1</td><td></td>
+      <td><span class="b crit">1</span></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    </tbody></table></div>
+    <div class="flowline">흐름: <b>S4</b> 코드·스펙·트래픽으로 Shadow/무인증/BOLA 후보 식별(M1) → <b>S5</b> 실제 요청 차분 테스트로 확정(M3). 확정 4건은 BOLA/무인증을 실증한 것.</div>
+    
+  </div>
+  
+</div>
+
+
+<div class="foot">
+외부 자산은 공개 데이터(CT로그·DNS)와 스코프 내 프로브로만 수집. 서브도메인 탈취는 지문 확인까지만(리소스 선점 안 함).<br>
+시크릿·API 능동 검증은 본인 소유/허가 범위에 한정. API 능동 검증(S5)은 로컬 crAPI 실습 앱 대상.
+</div>
+</div></body></html>
