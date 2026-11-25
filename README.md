@@ -6,6 +6,15 @@
 [API 보안 가시화 툴킷](https://github.com/remotedevsecops/api-security-visualizer)의
 런타임 검증(M3)으로 능동 확정한다.
 
+## 결과 샘플
+
+본인 소유 도메인을 대상으로 실제 실행한 결과를 **비식별화**한 예시입니다.
+
+- 🔗 **[렌더된 대시보드 바로 보기](https://raw.githack.com/remotedevsecops/attack-surface-mgmt/main/data/sample/asm_report.html)** — 외부 도메인(S0~S2) + 로컬 crAPI(S3~S5)를 타겟별로 분리한 단일 HTML 리포트
+- 원본·설명: [`data/sample/`](data/sample/) (대시보드 HTML, 발견 자산·프로브 JSON)
+
+> GitHub에선 `.html`이 소스로만 보여 위 링크는 githack 프록시로 렌더합니다. 비식별: 도메인 → `example.com`, 공인 IP → 문서화용 대역(RFC 5737).
+
 ## 핵심 설계
 
 - **발견만 하는 ASM과 다른 점**: CT로그·DNS로 자산을 찾는 데서 멈추지 않고,
